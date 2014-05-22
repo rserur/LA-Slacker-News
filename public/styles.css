@@ -138,6 +138,8 @@ padding: .5% 0;
   margin-top: -.8em;
 }
 
+/*Start Submit Form*/
+
 button {
   height: 1.5em;
   width: 8em;
@@ -147,6 +149,13 @@ button {
 
 textarea {
   margin: 1em 0;
+}
+
+
+/*End Submit Form*/
+
+strong {
+  font-size: inherit;
 }
 
 footer {
