@@ -153,7 +153,10 @@ textarea {
   margin: 1em 0;
 }
 
-
+.message {
+  color: #FF0000;
+  font-size: .4em;
+}
 /*End Submit Form*/
 
 strong {

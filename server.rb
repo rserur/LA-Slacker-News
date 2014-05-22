@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'csv'
+require 'uri'
 
 def get_news
 
@@ -13,6 +14,12 @@ def get_news
 
 end
 
+# URL validation method found @ http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3
+def valid?(uri)
+  !!URI.parse(uri)
+rescue URI::InvalidURIError
+  false
+end
 
 get '/' do
 
@@ -37,7 +44,13 @@ post '/x' do
 
   if @title == "" || @url == "" || @text == ""
 
-    @message = "Sorry, a title, url, and description is required for article submission."
+    @message = "*Sorry, a title, url, and description is required for article submission."
+
+    erb :submit
+
+  elsif !valid?(@url)
+
+    @message = "Sorry, that url is invalid. Try again."
 
     erb :submit
 
