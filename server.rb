@@ -28,4 +28,17 @@ get '/x' do
 
 end
 
+post '/x' do
 
+  # variables for form data
+  @title = params[:title]
+  @url = params[:url]
+  @text = params[:text]
+
+  CSV.open('news.csv', 'a') do |row|
+    row << [@title, @url]
+  end
+
+  redirect '/'
+
+end
