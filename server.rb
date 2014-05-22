@@ -54,10 +54,16 @@ post '/x' do
 
     erb :submit
 
+  elsif @text.length < 20
+
+    @message = "Sorry, descriptions must be 20 characters or more."
+
+    erb :submit
+
   else
 
     CSV.open('news.csv', 'a') do |row|
-      row << [@title, @url]
+      row << [@title, @url, @text]
     end
 
     redirect '/'
