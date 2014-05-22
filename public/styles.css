@@ -23,11 +23,12 @@ header {
   background-color: #FF6600;
   padding: 4px;
   margin-bottom: 1em;
+
 }
 
 #Y {
   float: left;
-  font-size: 5em;
+  font-size: 6.5em;
   font-weight: bold;
   color: #FFFFFF;
   border: 1px solid #FFFFFF;
@@ -37,17 +38,18 @@ header {
 
 header h1 {
   float: left;
-  font-size: 5.8em;
+  font-size: 8em;
   margin-right: .5em;
   margin-top: -.15em;
 }
 
-header a, footer a {
-  font-size: 13em;
+header a, footer a, header a:visited {
+  color: #000000;
 }
 
 header ul , footer ul{
   list-style-type: none;
+  font-size: 6.8em;
 }
 
 header li, footer li {

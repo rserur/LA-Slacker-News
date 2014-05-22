@@ -35,10 +35,19 @@ post '/x' do
   @url = params[:url]
   @text = params[:text]
 
-  CSV.open('news.csv', 'a') do |row|
-    row << [@title, @url]
-  end
+  if @title == "" || @url == "" || @text == ""
 
-  redirect '/'
+    @message = "Sorry, a title, url, and description is required for article submission."
+
+    erb :submit
+
+  else
+
+    CSV.open('news.csv', 'a') do |row|
+      row << [@title, @url]
+    end
+
+    redirect '/'
+  end
 
 end
