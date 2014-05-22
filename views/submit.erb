@@ -28,12 +28,12 @@
       <div class="message"><%= @message %></div>
       <form action="/x" method="POST">
         <label for="title">title*</label>
-        <input type="text" id="title" name="title"><br/>
+        <input type="text" id="title" name="title" value="<%= @title %>"><br/>
         <label for="url">url*</label>
-        <input type="text" id="url" name="url"><br/>
+        <input type="text" id="url" name="url" value="<%= @url %>"><br/>
         <p><strong>and</strong></p>
         <label for="text">description*</label>
-        <textarea rows="4" cols="50" id="text" name="text"></textarea><br/>
+        <textarea rows="4" cols="50" id="text" name="text"><%= @text %></textarea><br/>
         <input type="submit" value="submit">
       </form>
     </div>
