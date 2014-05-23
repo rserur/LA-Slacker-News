@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'csv'
+require 'json'
 require 'uri'
 require 'redis'
 
