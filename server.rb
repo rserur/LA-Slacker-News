@@ -1,18 +1,47 @@
 require 'sinatra'
 require 'csv'
 require 'uri'
+require 'redis'
 
-def get_news
+def get_connection
+  if ENV.has_key?("REDISCLOUD_URL")
+    Redis.new(url: ENV["REDISCLOUD_URL"])
+  else
+    Redis.new
+  end
+end
 
-  news = []
+def find_articles
+  redis = get_connection
+  serialized_articles = redis.lrange("slacker:articles", 0, -1)
 
-  CSV.foreach('news.csv', headers: true, header_converters: :symbol) do |row|
-    news << row.to_hash
+  articles = []
+
+  serialized_articles.each do |article|
+    articles << JSON.parse(article, symbolize_names: true)
   end
 
-  news
-
+  articles
 end
+
+def save_article(url, title, description)
+  article = { url: url, title: title, description: description }
+
+  redis = get_connection
+  redis.rpush("slacker:articles", article.to_json)
+end
+
+# def get_news
+
+#   news = []
+
+#   CSV.foreach('news.csv', headers: true, header_converters: :symbol) do |row|
+#     news << row.to_hash
+#   end
+
+#   news
+
+# end
 
 # URL validation method found @ http://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails-3
 def valid?(uri)
@@ -23,7 +52,7 @@ end
 
 get '/' do
 
-  @news = get_news
+  @news = find_articles
 
   erb :index
 
@@ -62,9 +91,11 @@ post '/x' do
 
   else
 
-    CSV.open('news.csv', 'a') do |row|
-      row << [@title, @url, @text]
-    end
+    # CSV.open('news.csv', 'a') do |row|
+    #   row << [@title, @url, @text]
+    # end
+
+    save_article(@title, @url, @text)
 
     redirect '/'
   end
