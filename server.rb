@@ -95,7 +95,7 @@ post '/x' do
     #   row << [@title, @url, @text]
     # end
 
-    save_article(@title, @url, @text)
+    save_article(@url, @title, @text)
 
     redirect '/'
   end
